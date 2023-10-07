@@ -1,7 +1,7 @@
 import returnFetch from "return-fetch";
 
 export const fetch = returnFetch({
-  baseUrl: location.origin,
+  baseUrl: typeof window === "undefined" ? "" : location.origin,
   interceptors: {
     request: async ([url, config]) => {
       config = config || {};

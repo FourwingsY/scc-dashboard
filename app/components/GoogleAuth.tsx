@@ -3,19 +3,23 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { fetch } from "@/utils/fetch";
+import { useEffectOnce } from "@/utils/useEffectOnce";
 
 export default function GoogleAuthButton() {
   const router = useRouter();
 
-  useEffect(() => {
-    fetch("/gapi/oauth/check").then((res) => {
-      if (res.status === 200) {
-        router.push("/dashboard");
-      } else {
-        localStorage.removeItem("token");
-      }
-    });
-  }, []);
+  useEffectOnce(async () => {
+    const res = await fetch("/gapi/oauth/check");
+    if (res.status !== 200) {
+      return localStorage.removeItem("token");
+    }
+    const { valid } = (await res.json()) as { valid: boolean };
+    if (valid) {
+      router.push("/dashboard");
+    } else {
+      return localStorage.removeItem("token");
+    }
+  });
 
   useEffect(() => {
     window.addEventListener("message", (event) => {
