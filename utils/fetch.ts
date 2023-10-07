@@ -1,7 +1,7 @@
 import returnFetch from "return-fetch";
 
 export const fetch = returnFetch({
-  baseUrl: "http://localhost:3000",
+  baseUrl: location.origin,
   interceptors: {
     request: async ([url, config]) => {
       config = config || {};

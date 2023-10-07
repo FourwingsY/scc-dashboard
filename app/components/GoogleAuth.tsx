@@ -8,6 +8,16 @@ export default function GoogleAuthButton() {
   const router = useRouter();
 
   useEffect(() => {
+    fetch("/gapi/oauth/check").then((res) => {
+      if (res.status === 200) {
+        router.push("/dashboard");
+      } else {
+        localStorage.removeItem("token");
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     window.addEventListener("message", (event) => {
       const { token, error } = event.data as { token?: string; error?: string };
       if (error) {
