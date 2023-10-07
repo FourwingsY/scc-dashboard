@@ -1,0 +1,31 @@
+#dashboard {
+  width: 600px;
+  margin: 32px auto;
+  & h1 {
+    margin-top: 24px;
+  }
+}
+
+.tabs {
+  margin-top: 10px;
+}
+
+.tab {
+  padding: 4px 8px;
+  cursor: pointer;
+  &.active {
+    background-color: #cdf;
+  }
+}
+
+.group-dashboard {
+  margin-top: 12px;
+}
+.group-dashboard table {
+  border-collapse: collapse;
+}
+.group-dashboard td,
+.group-dashboard th {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+}
